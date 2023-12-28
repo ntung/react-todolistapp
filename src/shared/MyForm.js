@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import {Button} from "react-bootstrap";
+import {Button, Container, Form} from "react-bootstrap";
 
 class MyForm extends Component {
   constructor() {
@@ -24,45 +24,33 @@ class MyForm extends Component {
 
   render() {
     return (
-      <form onSubmit={this.formSubmit}>
-        <div className="radio">
-          <label>
-            <input
-              type="radio"
-              value="Male"
-              checked={this.state.selectedOption === "Male"}
-              onChange={this.onValueChange}
+        <Container className={"mb-3"}>
+          <Form onSubmit={this.formSubmit}>
+            <Form.Check
+                type="radio"
+                value="Male"
+                label={"Male"}
+                checked={this.state.selectedOption === "Male"}
+                onChange={this.onValueChange}
             />
-            Male
-          </label>
-        </div>
-        <div className="radio">
-          <label>
-            <input
-              type="radio"
-              value="Female"
-              checked={this.state.selectedOption === "Female"}
-              onChange={this.onValueChange}
+            <Form.Check
+                type="radio"
+                value="Female"
+                label={"Female"}
+                checked={this.state.selectedOption === "Female"}
+                onChange={this.onValueChange}
             />
-            Female
-          </label>
-        </div>
-        <div className="radio">
-          <label>
-            <input
-              type="radio"
-              value="Other"
-              checked={this.state.selectedOption === "Other"}
-              onChange={this.onValueChange}
-            />
-            Other
-          </label>
-        </div>
-        <div>
-          Selected option is : {this.state.selectedOption}
-        </div>
-          <Button variant="primary" type={"submit"}>Submit</Button>{' '}
-      </form>
+            <Form.Check
+                type="radio"
+                value="Other"
+                label="Other"
+                checked={this.state.selectedOption === "Other"}
+                onChange={this.onValueChange}/>
+            <div>
+              Selected option is: {this.state.selectedOption}
+            </div>
+            <Button variant="primary" type={"submit"}>Submit</Button>{' '}
+          </Form></Container>
     );
   }
 }
