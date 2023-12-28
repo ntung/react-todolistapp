@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import {Button} from "react-bootstrap";
 
 class MyForm extends Component {
   constructor() {
@@ -60,9 +61,7 @@ class MyForm extends Component {
         <div>
           Selected option is : {this.state.selectedOption}
         </div>
-        <button className="btn btn-default" type="submit">
-          Submit
-        </button>
+          <Button variant="primary" type={"submit"}>Submit</Button>{' '}
       </form>
     );
   }
