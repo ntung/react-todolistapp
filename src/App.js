@@ -4,7 +4,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min";
 
 import './App.css';
-import MyForm from './shared/MyForm';
+import MyForm from './shared/myform';
 import Welcome from './shared/welcome';
 import UserProfile from './shared/user-profile';
 import DigitalClock from "./shared/timer";
