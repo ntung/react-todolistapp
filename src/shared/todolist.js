@@ -3,6 +3,8 @@ import React, {useState} from 'react';
 const TodoList = () => {
     const [todos, setTodos] = useState([]);
 
+    const [todoEditing, setTodoEditing] = useState(null);
+
     function handleSubmit(e) {
         e.preventDefault();
 
@@ -36,6 +38,17 @@ const TodoList = () => {
         setTodos(updatedTodos);
     }
 
+    function submitEdits(newtodo) {
+        const updatedTodos = [...todos].map((todo) => {
+            if (todo.id === newtodo.id) {
+                todo.text = document.getElementById(newtodo.id).value;
+            }
+            return todo;
+        });
+        setTodos(updatedTodos);
+        setTodoEditing(null);
+    }
+
     return (
         <div id="todo-list">
             <h1>Todo List</h1>
@@ -46,12 +59,41 @@ const TodoList = () => {
                 />
                 <button type="submit">Add Todo</button>
             </form>
-            {todos.map((todo) => <div className="todo" key={todo.id}>
-                <div className="todo-text">{todo.text} 
-                    <input type="checkbox" id="completed" checked={todo.completed}
-                           onChange={() => toggleComplete(todo.id)}/></div>
-                <button onClick={() => deleteTodo(todo.id)}>Delete</button>
-            </div>)}
+            {todos.map((todo) => (
+
+                <div key={todo.id} className="todo">
+                    <div className="todo-text">
+                        {/* Add checkbox for toggle complete */}
+                        <input
+                            type="checkbox"
+                            id="completed"
+                            checked={todo.completed}
+                            onChange={() => toggleComplete(todo.id)}
+                        />
+                        {/* if it is edit mode, display input box, else display text */}
+                        {todo.id === todoEditing ?
+                            (<input
+                                type="text"
+                                id = {todo.id}
+                                defaultValue={todo.text}
+                            />) :
+                            (<div>{todo.text}</div>)
+                        }
+                    </div>
+                    <div className="todo-actions">
+                        {/* if it is edit mode, allow to submit edit, else allow edit */}
+                        {todo.id === todoEditing ?
+                            (
+                                <button onClick={() => submitEdits(todo)}>Submit Edits</button>
+                            ) :
+                            (
+                                <button onClick={() => setTodoEditing(todo.id)}>Edit</button>
+                            )}
+
+                        <button onClick={() => deleteTodo(todo.id)}>Delete</button>
+                    </div>
+                </div>
+            ))}
         </div>
     );
 };
