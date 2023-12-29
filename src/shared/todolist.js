@@ -1,9 +1,24 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 
 const TodoList = () => {
     const [todos, setTodos] = useState([]);
 
     const [todoEditing, setTodoEditing] = useState(null);
+
+    useEffect(() => {
+        const json = localStorage.getItem("todos");
+        const loadedTodos = JSON.parse(json);
+        if (loadedTodos) {
+            setTodos(loadedTodos);
+        }
+    }, []);
+
+    useEffect(() => {
+        if(todos.length > 0) {
+            const json = JSON.stringify(todos);
+            localStorage.setItem("todos", json);
+        }
+    }, [todos]);
 
     function handleSubmit(e) {
         e.preventDefault();
